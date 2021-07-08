@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="map" default="$(find maplauncher)/my_map.yaml"/>
+    <node pkg="map_server" name="map_server" type="map_server" args="$(arg map)"/>
+      <!-- group for racecar -->
+    <param name="robot_description" command="$(find xacro)/xacro '$(find fssim_nav)/racecar.xacro'"/>
+    <arg name="gui" default="True" />
+    <param name="use_gui" value="True"/>
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+    <node pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" name="joint_state_publisher_gui" output="screen" if="$(arg gui)" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" /> 
+    <node name="rviz" pkg="rviz" type="rviz" />
+
+</launch>
